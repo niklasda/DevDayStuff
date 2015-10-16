@@ -14,8 +14,9 @@
 
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using RxApplication.ViewModels;
 
-namespace RxApplication.ViewModels
+namespace RxApplication.Locator
 {
     public class ViewModelLocator
     {

@@ -33,22 +33,14 @@ namespace RxApplication.ViewModels
         private void DoDemo1()
         {
             var d = new Demos();
-            d.Demo1(x =>
-            {
-                TextResult += x.ToString();
-                return "";
-            });
+            d.Demo1(x => TextResult += x.ToString());
         }
 
 
         private void DoDemo2()
         {
             var d = new Demos();
-            d.Demo2(x =>
-            {
-                TextResult += x;
-                return "";
-            });
+            d.Demo2(x => TextResult += x);
         }
     }
 }
