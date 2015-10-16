@@ -2,7 +2,7 @@
 using FsCheck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace RxDemoCodeTests
+namespace RxDemoCodeTests.Demos
 {
     [TestClass]
     public class DemoTests

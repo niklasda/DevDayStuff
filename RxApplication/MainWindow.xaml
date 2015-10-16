@@ -5,13 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RxApplication"
         mc:Ignorable="d"
-        Title="Rx.NET Demo Window" Height="350" Width="525">
+        Title="Rx.NET Demo Window" Height="350" Width="563.005" Icon="Icon/Rx_Icon.png">
     <Grid DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
-        <GroupBox x:Name="groupBox" Header="Demos" HorizontalAlignment="Left" Margin="17,18,0,0" VerticalAlignment="Top" Height="212" Width="127">
-            <Button x:Name="button" Content="Demo1" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Demo1Command}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="29*"/>
+            <ColumnDefinition Width="75*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="groupBox" Header="Demos" HorizontalAlignment="Left" Margin="10,10,0,10" Width="127">
+            <StackPanel>
+                <Button x:Name="button1" Content="Demo 1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Demo1Command}"/>
+                <Button x:Name="button2" Content="Demo 2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Demo2Command}"/>
+            </StackPanel>
         </GroupBox>
-        <GroupBox x:Name="groupBox1" Header="Results" HorizontalAlignment="Left" Margin="220,18,0,0" VerticalAlignment="Top" Height="212" Width="175">
-            <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="124" Margin="20,22,0,0" TextWrapping="Wrap" Text="{Binding TextResult}" VerticalAlignment="Top" Width="120"/>
+        <GroupBox x:Name="groupBox1" Header="Results" Margin="142,10,10,10" Grid.ColumnSpan="2">
+            <TextBox x:Name="textBox" Margin="10,10,10,10" TextWrapping="Wrap" Text="{Binding TextResult}" FontSize="24"/>
         </GroupBox>
 
     </Grid>
