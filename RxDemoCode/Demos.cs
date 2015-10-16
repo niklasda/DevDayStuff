@@ -13,7 +13,7 @@ namespace RxDemoCode
                           where n < 5
                           select n;
 
-            Console.WriteLine("Numbers < 5:");
+            //Console.WriteLine("Numbers < 5:");
 
             lowNums.Subscribe(lowNum =>
             {
