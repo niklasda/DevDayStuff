@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RxApplication"
         mc:Ignorable="d"
-        Title="Rx.NET Demo Window" Height="350" Width="563.005" Icon="/RxApplication;component/Icon/Rx_Icon.png">
+        Title="Rx.NET Demo Window" Height="350" Width="563" Icon="/RxApplication;component/Icon/Rx_Icon.png">
     <Grid DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="29*"/>
@@ -15,6 +15,7 @@
             <StackPanel>
                 <Button x:Name="button1" Content="Demo 1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Demo1Command}"/>
                 <Button x:Name="button2" Content="Demo 2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Command="{Binding Demo2Command}"/>
+                <Button x:Name="button3" Content="Graph..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Command="{Binding GraphCommand}"/>
             </StackPanel>
         </GroupBox>
         <GroupBox x:Name="groupBox1" Header="Results" Margin="10,10,10,10" Grid.Column="1">
