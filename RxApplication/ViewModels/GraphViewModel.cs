@@ -9,7 +9,7 @@ namespace RxApplication.ViewModels
     {
         public GraphViewModel()
         {
-            _graphData = new PlotModel { Title = "Example 1" };
+            _graphData = new PlotModel { Title = "Example 1", Subtitle = "Graph"};
             _graphData.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
         }
 
