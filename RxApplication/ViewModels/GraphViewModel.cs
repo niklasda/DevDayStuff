@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
+using RxDemoCode.Demos;
 
 namespace RxApplication.ViewModels
 {
@@ -12,12 +13,13 @@ namespace RxApplication.ViewModels
         public GraphViewModel()
         {
             var plotModel = new PlotModel { Title = "Example 1", Subtitle = "Graph" };
-            plotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = -1, Maximum = 1 });
+            plotModel.Axes.Add(new LinearAxis { Position = AxisPosition.Left, Minimum = -1, Maximum = 10 });
             plotModel.Series.Add(new LineSeries { LineStyle = LineStyle.Solid });
 
             GraphData = plotModel;
 
-            _timer = new Timer(OnTimerElapsed, null, 500, 20);
+            Update2();
+            //            _timer = new Timer(OnTimerElapsed, null, 500, 20);
         }
 
         private PlotModel _graphData;
@@ -58,9 +60,25 @@ namespace RxApplication.ViewModels
                 s.Points.RemoveAt(0);
 
             var r = new Random(DateTime.Now.Millisecond);
-            double y = r.Next(-1, 2)*r.NextDouble();
+            double y = r.Next(-1, 2) * r.NextDouble();
 
             s.Points.Add(new DataPoint(x, y));
+        }
+
+        private void Update2()
+        {
+            var s = (LineSeries) GraphData.Series[0];
+
+            Action<long> f = x =>
+            {
+                s.Points.Add(new DataPoint(x, x));
+                GraphData.InvalidatePlot(true);
+            };
+
+        var d = new DemoPart1();
+            d.Demo1(f);
+
+
         }
     }
 }

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RxApplication", "RxApplicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RxDemoCode", "RxDemoCode\RxDemoCode.csproj", "{2154BC69-B788-41DD-B206-AA3667B1EF4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RxDemoCodeTests", "RxDemoCodeTests\RxDemoCodeTests.csproj", "{DA30E9F6-C87A-4461-83CE-5C5B5B32FD17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RxDemoCode.Tests", "RxDemoCodeTests\RxDemoCode.Tests.csproj", "{DA30E9F6-C87A-4461-83CE-5C5B5B32FD17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -3,15 +3,15 @@ using System.Reactive.Linq;
 
 namespace RxDemoCode.Demos
 {
-    public class Demos
+    public class DemoPart1
     {
-        public void Demo1(Func<long, string> callback)
+        public void Demo1(Action<long> callback)
         {
             IObservable<long> oneNumberPerSecond = Observable.Interval(TimeSpan.FromSeconds(0.2));
 
             IObservable<long> lowNums = from n in oneNumberPerSecond where n < 10 select n;
 
-            lowNums.Subscribe(lowNum => callback(lowNum));
+            lowNums.Subscribe(callback);
         }
 
         public void Demo2(Action<string> callback)

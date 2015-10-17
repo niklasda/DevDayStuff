@@ -34,19 +34,19 @@ namespace RxApplication.ViewModels
 
         private void DoDemo1()
         {
-            var d = new Demos();
+            var d = new DemoPart1();
             d.Demo1(x => TextResult += x.ToString());
         }
         
         private void DoDemo2()
         {
-            var d = new Demos();
+            var d = new DemoPart1();
             d.Demo2(x => TextResult += x);
         }
         private void DoGraphDemo()
         {
             var win2 = new GraphWindow();
-            win2.Show();
+            win2.ShowDialog();
         }
     }
 }

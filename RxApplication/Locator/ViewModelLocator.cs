@@ -1,3 +1,4 @@
+using System.Net.Http;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using RxApplication.ViewModels;
@@ -9,7 +10,7 @@ namespace RxApplication.Locator
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
+            
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<GraphViewModel>();
         }
