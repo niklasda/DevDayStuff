@@ -17,7 +17,7 @@ namespace RxDemoCodeTests.Demos
             Func<int, Property> numProp = x => (x.ToString() == funUnderTest(x)).When(x%3 != 0);
             Prop.ForAll(numProp).QuickCheck();
 
-           Prop.
+           
         }
     }
 }

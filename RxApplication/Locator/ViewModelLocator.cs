@@ -1,7 +1,3 @@
-/*
-  See http://www.galasoft.ch/mvvm
-*/
-
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using RxApplication.ViewModels;
