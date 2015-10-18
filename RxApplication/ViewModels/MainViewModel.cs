@@ -28,6 +28,9 @@ namespace RxApplication.ViewModels
             }
         }
 
+        public RelayCommand MouseMove { get; set; }
+
+
         public RelayCommand Demo1Command { get; set; }
         public RelayCommand Demo2Command { get; set; }
         public RelayCommand GraphCommand { get; set; }

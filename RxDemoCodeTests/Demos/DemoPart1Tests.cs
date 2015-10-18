@@ -61,7 +61,7 @@ namespace RxDemoCode.Tests.Demos
         public void TestDemo12()
         {
             var d = new RxDemoCode.Demos.DemoPart1();
-            var callb = A.Fake<Func<long,string>>();
+            var callb = A.Fake<Action<long>>();
 
             d.Demo1(callb);
             Thread.Sleep(3000); // method should take 2s to play out async

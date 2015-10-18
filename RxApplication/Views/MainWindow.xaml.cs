@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using RxDemoCode.Demos;
 
 namespace RxApplication.Views
 {
@@ -7,6 +8,12 @@ namespace RxApplication.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var d = new DemoPart1();
+            d.Demo4(this);
         }
     }
 }

@@ -19,7 +19,6 @@ namespace RxApplication.ViewModels
             GraphData = plotModel;
 
             Update2();
-            //            _timer = new Timer(OnTimerElapsed, null, 500, 20);
         }
 
         private PlotModel _graphData;
@@ -36,20 +35,8 @@ namespace RxApplication.ViewModels
             }
         }
 
-        private readonly Timer _timer;
-
         // private Func<double, double, double, double> Function { get; set; }
         // Function = (t, x, a) => Math.Cos(t * a) * (x == 0 ? 1 : Math.Sin(x * a) / x);
-
-        private void OnTimerElapsed(object state)
-        {
-            lock (GraphData.SyncRoot)
-            {
-                Update();
-            }
-
-            GraphData.InvalidatePlot(true);
-        }
 
         private void Update()
         {
@@ -75,7 +62,7 @@ namespace RxApplication.ViewModels
                 GraphData.InvalidatePlot(true);
             };
 
-        var d = new DemoPart1();
+            var d = new DemoPart1();
             d.Demo1(f);
 
 
