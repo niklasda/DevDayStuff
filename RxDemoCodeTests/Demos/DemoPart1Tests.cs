@@ -31,7 +31,7 @@ namespace RxDemoCode.Tests.Demos
             Func<int, string> funUnderTest = x => (2*x).ToString();
             //Arb.Default.Int32().Generator();
             Func<int, Property> numProp = x => (x.ToString() == funUnderTest(x)).When(x%3 != 0);
-            Prop.ForAll(numProp).QuickCheck();
+            Prop.ForAll(numProp).QuickCheckThrowOnFailure();
 
             IEnumerable<int> all = Enumerable.Range(1, 100);
 
