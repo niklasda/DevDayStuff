@@ -1,21 +1,22 @@
-using System.Net.Http;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using RxApplication.ViewModels;
 
-namespace RxApplication.Locator
+namespace RxApplication.Locators
 {
-    public class ViewModelLocator
+    public class VmLocator
     {
-        public ViewModelLocator()
+        public VmLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<GraphViewModel>();
+            SimpleIoc.Default.Register<PresentationViewModel>();
         }
 
         public MainViewModel Main { get { return ServiceLocator.Current.GetInstance<MainViewModel>(); } }
         public GraphViewModel Graph { get { return ServiceLocator.Current.GetInstance<GraphViewModel>(); } }
+        public PresentationViewModel Presentation { get { return ServiceLocator.Current.GetInstance<PresentationViewModel>(); } }
     }
 }

@@ -1,8 +1,14 @@
-<Application x:Class="RxApplication.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StartupUri="Views/MainWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:locator="clr-namespace:RxApplication.Locator">
-  <Application.Resources>
-    <ResourceDictionary>
-      <locator:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
-    </ResourceDictionary>
-  </Application.Resources>
+<Application x:Class="RxApplication.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             StartupUri="Views/MainWindow.xaml" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             d1p1:Ignorable="d" 
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:locator="clr-namespace:RxApplication.Locators">
+    <Application.Resources>
+        <ResourceDictionary>
+            <locator:VmLocator x:Key="VmLocator" d:IsDataSource="True" />
+            <locator:SvcLocator x:Key="SvcLocator" d:IsDataSource="True" />
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

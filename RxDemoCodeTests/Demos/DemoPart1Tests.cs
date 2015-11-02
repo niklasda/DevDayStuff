@@ -8,6 +8,8 @@ using FsCheck.Experimental;
 using Microsoft.FSharp.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using FakeItEasy;
+using RxDemoCode.Interfaces;
+using RxDemoCode.Services;
 
 namespace RxDemoCode.Tests.Demos
 {
@@ -60,7 +62,9 @@ namespace RxDemoCode.Tests.Demos
         [TestMethod]
         public void TestDemo12()
         {
-            var d = new RxDemoCode.Demos.DemoPart1();
+            IDemo1Service d = new Demo1Service();
+
+ //           var d = new RxDemoCode.Demos.DemoPart1();
             var callb = A.Fake<Action<long>>();
 
             d.Demo1(callb);

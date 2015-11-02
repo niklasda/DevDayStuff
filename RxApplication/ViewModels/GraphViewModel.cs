@@ -1,10 +1,13 @@
 using System;
 using System.Threading;
 using GalaSoft.MvvmLight;
+using Microsoft.Practices.ServiceLocation;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
-using RxDemoCode.Demos;
+using RxDemoCode.Interfaces;
+
+//using RxDemoCode.Demos;
 
 namespace RxApplication.ViewModels
 {
@@ -62,7 +65,9 @@ namespace RxApplication.ViewModels
                 GraphData.InvalidatePlot(true);
             };
 
-            var d = new DemoPart1();
+            var d = ServiceLocator.Current.GetInstance<IDemo1Service>();
+
+            //var d = new DemoPart1();
             d.Demo1(f);
 
 

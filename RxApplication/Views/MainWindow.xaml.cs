@@ -1,5 +1,6 @@
 ﻿using System.Windows;
-using RxDemoCode.Demos;
+using Microsoft.Practices.ServiceLocation;
+using RxDemoCode.Interfaces;
 
 namespace RxApplication.Views
 {
@@ -12,7 +13,8 @@ namespace RxApplication.Views
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var d = new DemoPart1();
+            var d = ServiceLocator.Current.GetInstance<IDemo1Service>();
+            //var d = new DemoPart1();
             d.Demo4(this);
         }
     }

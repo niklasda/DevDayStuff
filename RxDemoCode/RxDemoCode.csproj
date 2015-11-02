@@ -59,7 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Demos\DemoPart1.cs" />
+    <Compile Include="Interfaces\IDemo1Service.cs" />
+    <Compile Include="Observers\ObserverOfMouse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Demo1Service.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

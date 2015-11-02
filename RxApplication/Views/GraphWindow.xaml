@@ -2,8 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:oxy="http://oxyplot.org/wpf"
-        Title="GraphWindow" Height="300" Width="300" Icon="/RxApplication;component/Icon/Rx_Icon.png">
-    <Grid DataContext="{Binding Source={StaticResource Locator}, Path=Graph}">
+        Title="Graph" Height="600" Width="500" 
+        Icon="/RxApplication;component/Icon/Rx_Icon.png">
+    <Grid DataContext="{Binding Source={StaticResource VmLocator}, Path=Graph}">
         <oxy:PlotView Model="{Binding GraphData}"/>
     </Grid>
 </Window>
