@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:oxy="http://oxyplot.org/wpf"
         Title="Graph" Height="600" Width="500" 
-        Icon="/RxApplication;component/Icon/Rx_Icon.png">
-    <Grid DataContext="{Binding Source={StaticResource VmLocator}, Path=Graph}">
+        Icon="/RxApplication;component/Icon/Rx_Icon.png" 
+        DataContext="{Binding Source={StaticResource VmLocator}, Path=Graph}">
+    <Grid>
         <oxy:PlotView Model="{Binding GraphData}"/>
     </Grid>
 </Window>

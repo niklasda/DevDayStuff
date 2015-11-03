@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Microsoft.Practices.ServiceLocation;
+using RxApplication.ViewModels;
 using RxDemoCode.Interfaces;
 
 namespace RxApplication.Views
@@ -11,11 +13,14 @@ namespace RxApplication.Views
             InitializeComponent();
         }
 
+        private MainViewModel ViewModel { get { return this.DataContext as MainViewModel; } }
+
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
+            Action<string> callback = x => ViewModel.TextResult = x + Environment.NewLine + ViewModel.TextResult;
+
             var d = ServiceLocator.Current.GetInstance<IDemo1Service>();
-            //var d = new DemoPart1();
-            d.Demo4(this);
+            d.Demo4(this, callback);
         }
     }
 }

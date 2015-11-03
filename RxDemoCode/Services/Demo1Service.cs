@@ -47,15 +47,14 @@ namespace RxDemoCode.Services
             oneNumberPerSecond.Subscribe(callback);
         }
 
-        public void Demo4(UIElement wnd)
+        public void Demo4(UIElement wnd, Action<string> callback)
         {
             // IObserver<EventPattern<MouseEventArgs>> callback
             // observable from mouseMove event, plot speed
 
-            var movingEvents = Observable.FromEventPattern<MouseEventHandler, MouseEventArgs>(
-                ev => wnd.MouseMove += ev, ev => wnd.MouseMove -= ev);
+            var movingEvents = Observable.FromEventPattern<MouseEventHandler, MouseEventArgs>(ev => wnd.MouseMove += ev, ev => wnd.MouseMove -= ev);
 
-            movingEvents.Subscribe(new ObserverOfMouse());
+            movingEvents.Subscribe(new ObserverOfMouse(callback));
 
             //var deltas = from pair in movingEvents.Buffer(2)
             //             let array = pair.ToArray()

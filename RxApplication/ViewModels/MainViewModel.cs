@@ -1,3 +1,4 @@
+using System;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Practices.ServiceLocation;
@@ -12,10 +13,15 @@ namespace RxApplication.ViewModels
         {
             Demo1Command = new RelayCommand(DoDemo1);
             Demo2Command = new RelayCommand(DoDemo2);
+            Demo3Command = new RelayCommand(DoDemo3);
             GraphCommand = new RelayCommand(DoGraphDemo);
             PresentationCommand = new RelayCommand(OpenPresentationWindow);
+
+            _demo1Svc = ServiceLocator.Current.GetInstance<IDemo1Service>();
+
         }
 
+        private IDemo1Service _demo1Svc;
         private string _textResult;
         public string TextResult
         {
@@ -35,21 +41,26 @@ namespace RxApplication.ViewModels
 
         public RelayCommand Demo1Command { get; set; }
         public RelayCommand Demo2Command { get; set; }
+        public RelayCommand Demo3Command { get; set; }
         public RelayCommand GraphCommand { get; set; }
         public RelayCommand PresentationCommand { get; set; }
 
         private void DoDemo1()
         {
-            var d = ServiceLocator.Current.GetInstance<IDemo1Service>();
-            //var d = new DemoPart1();
-            d.Demo1(x => TextResult += x.ToString());
+            Action<long> callback = x => TextResult += x.ToString();
+            _demo1Svc.Demo1(callback);
         }
-        
+
         private void DoDemo2()
         {
-            var d = ServiceLocator.Current.GetInstance<IDemo1Service>();
-//            var d = new DemoPart1();
-            d.Demo2(x => TextResult += x);
+            Action<string> callback = x => TextResult += x;
+            _demo1Svc.Demo2(callback);
+        }
+
+        private void DoDemo3()
+        {
+            Action<double> callback = x => TextResult += x;
+            _demo1Svc.Demo3(callback);
         }
 
         private void DoGraphDemo()

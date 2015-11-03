@@ -59,7 +59,7 @@ namespace RxApplication.ViewModels
         {
             var s = (LineSeries) GraphData.Series[0];
 
-            Action<long> f = x =>
+            Action<long> callback = x =>
             {
                 s.Points.Add(new DataPoint(x, x));
                 GraphData.InvalidatePlot(true);
@@ -67,9 +67,7 @@ namespace RxApplication.ViewModels
 
             var d = ServiceLocator.Current.GetInstance<IDemo1Service>();
 
-            //var d = new DemoPart1();
-            d.Demo1(f);
-
+            d.Demo1(callback);
 
         }
     }
