@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Practices.ServiceLocation;
@@ -14,14 +15,23 @@ namespace RxApplication.ViewModels
             Demo1Command = new RelayCommand(DoDemo1);
             Demo2Command = new RelayCommand(DoDemo2);
             Demo3Command = new RelayCommand(DoDemo3);
+            Demo4Command = new RelayCommand(ToggleDemo4);
+            Demo5Command = new RelayCommand(DoDemo5);
+            Demo6Command = new RelayCommand(DoDemo6);
             GraphCommand = new RelayCommand(DoGraphDemo);
             PresentationCommand = new RelayCommand(OpenPresentationWindow);
+            ClearLogCommand = new RelayCommand(DoClearLog);
 
             _demo1Svc = ServiceLocator.Current.GetInstance<IDemo1Service>();
 
+            _callback = AppendLineWithPidToTextResult;
+
         }
 
+        private Action<string> _callback;
+
         private IDemo1Service _demo1Svc;
+
         private string _textResult;
         public string TextResult
         {
@@ -42,25 +52,47 @@ namespace RxApplication.ViewModels
         public RelayCommand Demo1Command { get; set; }
         public RelayCommand Demo2Command { get; set; }
         public RelayCommand Demo3Command { get; set; }
+        public RelayCommand Demo4Command { get; set; }
+        public RelayCommand Demo5Command { get; set; }
+        public RelayCommand Demo6Command { get; set; }
         public RelayCommand GraphCommand { get; set; }
         public RelayCommand PresentationCommand { get; set; }
+        public RelayCommand ClearLogCommand { get; set; }
 
         private void DoDemo1()
         {
-            Action<long> callback = x => TextResult += x.ToString();
-            _demo1Svc.Demo1(callback);
+          //  Action<long> callback = x => TextResult += x.ToString();
+            _demo1Svc.Demo1(_callback);
         }
 
         private void DoDemo2()
         {
-            Action<string> callback = x => TextResult += x;
-            _demo1Svc.Demo2(callback);
+
+            //Action<string> callback = x => TextResult += x;
+            _demo1Svc.Demo2(_callback);
         }
 
         private void DoDemo3()
         {
-            Action<double> callback = x => TextResult += x;
-            _demo1Svc.Demo3(callback);
+            //            Action<double> callback = x => TextResult += x;
+            _demo1Svc.Demo3(_callback);
+        }
+
+        private void ToggleDemo4()
+        {
+            //            Action<double> callback = x => TextResult += x;
+            _demo1Svc.Demo4Toggle();
+        }
+
+        private void DoDemo5()
+        {
+            _demo1Svc.Demo5(_callback);
+        }
+
+        private void DoDemo6()
+        {
+            //nbAction<string> callback = x => TextResult += x + Environment.NewLine;
+            _demo1Svc.Demo6(_callback);
         }
 
         private void DoGraphDemo()
@@ -73,6 +105,29 @@ namespace RxApplication.ViewModels
         {
             var presentationWindow = new PresentationWindow();
             presentationWindow.ShowDialog();
+        }
+        private void DoClearLog()
+        {
+            TextResult = "";
+        }
+
+        //private void AppendToTextResult(string text)
+        //{
+        //    TextResult += text;
+        //}
+
+        //private void AppendLineToTextResult(string text)
+        //{
+        //    TextResult += text;
+        //    TextResult += Environment.NewLine;
+        //}
+
+        private void AppendLineWithPidToTextResult(string text)
+        {
+            TextResult += text;
+            TextResult += " - Thread: ";
+            TextResult += Thread.CurrentThread.ManagedThreadId.ToString();
+            TextResult += Environment.NewLine;
         }
     }
 }

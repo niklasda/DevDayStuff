@@ -59,9 +59,10 @@ namespace RxApplication.ViewModels
         {
             var s = (LineSeries) GraphData.Series[0];
 
-            Action<long> callback = x =>
+            Action<string> callback = x =>
             {
-                s.Points.Add(new DataPoint(x, x));
+                double y = double.Parse(x);
+                s.Points.Add(new DataPoint(y, y));
                 GraphData.InvalidatePlot(true);
             };
 

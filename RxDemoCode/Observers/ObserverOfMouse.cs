@@ -20,7 +20,7 @@ namespace RxDemoCode.Observers
             var p = value.EventArgs.GetPosition((UIElement)value.Sender);
             var s = string.Format("{0} {1}", p.X, p.Y);
 
-         //   _callback(s);
+            _callback(s);
 //            Debug.WriteLine(s);
         }
 

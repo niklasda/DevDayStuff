@@ -19,11 +19,11 @@ namespace RxDemoCode.Tests.Demos
             IDemo1Service d = new Demo1Service();
 
  //           var d = new RxDemoCode.Demos.DemoPart1();
-            var callb = A.Fake<Action<long>>();
+            var callb = A.Fake<Action<string>>();
 
             d.Demo1(callb);
             Thread.Sleep(3000); // method should take 2s to play out async
-            A.CallTo(() => callb.Invoke(A<long>.Ignored)).MustHaveHappened(Repeated.Exactly.Times(10));
+            A.CallTo(() => callb.Invoke(A<string>.Ignored)).MustHaveHappened(Repeated.Exactly.Times(10));
             
         }
     }
