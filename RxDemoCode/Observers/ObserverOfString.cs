@@ -6,21 +6,21 @@ using System.Windows.Input;
 
 namespace RxDemoCode.Observers
 {
-    public class ObserverOfMouse : IObserver<EventPattern<MouseEventArgs>>
+    public class ObserverOfString : IObserver<string>
     {
         private Action<string> _callback;
 
-        public ObserverOfMouse(Action<string> callback)
+        public ObserverOfString(Action<string> callback)
         {
             _callback = callback;
         }
 
-        public void OnNext(EventPattern<MouseEventArgs> value)
+        public void OnNext(string value)
         {
-            var p = value.EventArgs.GetPosition((UIElement)value.Sender);
-            var s = string.Format("{0} {1}", p.X, p.Y);
+            //var p = value.EventArgs.GetPosition((UIElement)value.Sender);
+            var s = string.Format("{0}", value);
 
-         //   _callback(s);
+            _callback(s);
 //            Debug.WriteLine(s);
         }
 
@@ -33,7 +33,7 @@ namespace RxDemoCode.Observers
         public void OnCompleted()
         {
             _callback("Complete");
-   //n         Debug.WriteLine("Complete");
+   //         Debug.WriteLine("Complete");
         }
     }
 }

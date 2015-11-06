@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using RxDemoCode.Interfaces;
@@ -26,7 +28,16 @@ namespace RxDemoCode.Services
 
             IObservable<string> lowNums = from n in oneNumberPerSecond where n < chars.Length select chars[n].ToString();
 
-            lowNums.Subscribe(callback);
+            var sub1 = lowNums.Subscribe(callback);
+
+            var obs = Observable.Return(101, Scheduler.CurrentThread);
+
+            var sub2 = lowNums.SubscribeOn(Scheduler.Immediate);
+
+
+            IObserver<string> observer = new ObserverOfString(callback);
+            IDisposable sub3 = lowNums.SubscribeSafe(observer);
+            observer.OnCompleted(); // not a good place for this though 
         }
 
         public void Demo3(Action<double> callback)
@@ -63,6 +74,26 @@ namespace RxDemoCode.Services
             //             select new Size(b.X - a.X, b.Y - a.Y);
 
             //deltas.Subscribe(new ObserverOfMouseMoves());
+        }
+
+        // http://mtaulty.com/CommunityServer/blogs/mike_taultys_blog/archive/2011/08/09/rx-and-schedulers.aspx
+
+        public async void somet()
+        {
+            var observable = Observable.Return(101).Repeat().Take(5);
+
+            observable.ForEach(value => Console.WriteLine("Value produced is {0}", value));
+
+            //await observable.ForEachAsync(value => Console.WriteLine("Value produced is {0}", value));
+
+            Console.WriteLine("Done");
+        }
+
+        public void someth()
+        {
+            var observable = Observable.Return(101).Repeat().Take(5);
+
+            observable.Subscribe(i => Console.WriteLine(i), () => Console.WriteLine("Completed"));
         }
     }
 }
