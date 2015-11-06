@@ -78,18 +78,19 @@ namespace RxDemoCode.Services
 
         // http://mtaulty.com/CommunityServer/blogs/mike_taultys_blog/archive/2011/08/09/rx-and-schedulers.aspx
 
-        public async void somet()
+        public void Demo5()
         {
-            var observable = Observable.Return(101).Repeat().Take(5);
+            var observable = Observable.Return(101).Repeat(5).Take(5);
 
-            observable.ForEach(value => Console.WriteLine("Value produced is {0}", value));
+            //observable.ForEach(value => Console.WriteLine("Value produced is {0}", value));
 
-            //await observable.ForEachAsync(value => Console.WriteLine("Value produced is {0}", value));
+            var foea = observable.ForEachAsync(value => Console.WriteLine("Value produced is {0}", value));
+            foea.Wait();
 
             Console.WriteLine("Done");
         }
 
-        public void someth()
+        public void Demo6()
         {
             var observable = Observable.Return(101).Repeat().Take(5);
 
