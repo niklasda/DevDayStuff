@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Disposables;
@@ -12,20 +14,27 @@ namespace RxDemoCode.Services
 {
     public class Demo1Service : IDemo1Service
     {
+        public void Demo0(Action<string> callback)
+        {
+            IEnumerable<long> oneNumberPerSecond = new long[] {0,1,2,3,4,5,6,7,8,9};
+
+            IEnumerable<string> lowNums = from n in oneNumberPerSecond where n < 10 select n.ToString();
+            IObserver<string> observer = new ObserverOfString(callback);
+
+            lowNums.Subscribe(observer);
+        }
+
         public void Demo1(Action<string> callback)
         {
             IObservable<long> oneNumberPerSecond = Observable.Interval(TimeSpan.FromSeconds(0.2));
 
             IObservable<string> lowNums = from n in oneNumberPerSecond where n < 10 select n.ToString();
-
-            lowNums.Subscribe(callback);
+            
+            lowNums.Subscribe(callback, () => callback("Completed"));
         }
 
         public void Demo2(Action<string> callback)
         {
-            //   IObservable<char> chars2 = "Welcome to Rx.NET\n".ToObservable();
-            //  var obs1 = chars2.TimeInterval();
-            //    chars2.Subscribe(callback);
             Observable.Return("Welcome to Rx.NET\n").Subscribe(callback);
 
             char[] chars = "Welcome to Rx.NET\n".ToCharArray();
@@ -34,16 +43,35 @@ namespace RxDemoCode.Services
 
             IObservable<string> lowNums = from n in oneNumberPerSecond where n < chars.Length select chars[n].ToString();
 
-            var sub1 = lowNums.Subscribe(callback);
+            var sub1 = lowNums.Subscribe(callback, () => callback("Completed"));
+        }
 
-            var obs = Observable.Return(101, Scheduler.CurrentThread);
+        public void Demo2_2(Action<string> callback)
+        {
+            Observable.Return("Welcome to Rx.NET\n").Subscribe(callback);
+
+            char[] chars = "Welcome to Rx.NET\n".ToCharArray();
+
+            IObservable<long> oneNumberPerSecond = Observable.Interval(TimeSpan.FromSeconds(0.2));
+
+            IObservable<string> lowNums = from n in oneNumberPerSecond where n < chars.Length select chars[n].ToString();
 
             var sub2 = lowNums.SubscribeOn(Scheduler.Immediate);
+            sub2.Subscribe(callback, () => callback("Completed"));
+        }
 
+        public void Demo2_3(Action<string> callback)
+        {
+            Observable.Return("Welcome to Rx.NET\n").Subscribe(callback);
+
+            char[] chars = "Welcome to Rx.NET\n".ToCharArray();
+
+            IObservable<long> oneNumberPerSecond = Observable.Interval(TimeSpan.FromSeconds(0.2));
+
+            IObservable<string> lowNums = from n in oneNumberPerSecond where n < chars.Length select chars[n].ToString();
 
             IObserver<string> observer = new ObserverOfString(callback);
             IDisposable sub3 = lowNums.SubscribeSafe(observer);
-            observer.OnCompleted(); // not a good place for this though 
         }
 
         public void Demo3(Action<string> callback)
@@ -61,9 +89,7 @@ namespace RxDemoCode.Services
                 i => TimeSpan.FromSeconds(0.1)
                 );
 
-            //IObservable<string> lowNums = from n in oneNumberPerSecond where n < chars.Length select chars[n].ToString();
-
-            oneNumberPerSecond.Subscribe(callback);
+            oneNumberPerSecond.Subscribe(callback, () => callback("Completed"));
         }
 
         private ObserverOfMouse _obsemo;
@@ -72,9 +98,6 @@ namespace RxDemoCode.Services
 
         public void Demo4Setup(UIElement wnd, Action<string> callback)
         {
-            // IObserver<EventPattern<MouseEventArgs>> callback
-            // observable from mouseMove event, plot speed
-
             _movingEvents = Observable.FromEventPattern<MouseEventHandler, MouseEventArgs>(ev => wnd.MouseMove += ev, ev => wnd.MouseMove -= ev);
             _obsemo = new ObserverOfMouse(callback);
           //  _mouseSub = _movingEvents.Subscribe(_obsemo);
@@ -102,12 +125,11 @@ namespace RxDemoCode.Services
         }
 
         // http://mtaulty.com/CommunityServer/blogs/mike_taultys_blog/archive/2011/08/09/rx-and-schedulers.aspx
+        // http://blogs.microsoft.co.il/bnaya/2010/03/13/rx-for-beginners-part-9-hot-vs-cold-observable/
 
         public void Demo5(Action<string> callback)
         {
             var observable = Observable.Return(101).Repeat(5).Take(5);
-
-            //observable.ForEach(value => Console.WriteLine("Value produced is {0}", value));
 
             var foea = observable.ForEachAsync(value => callback(string.Format("Value produced is {0}", value)));
             foea.Wait();
@@ -121,7 +143,5 @@ namespace RxDemoCode.Services
 
             observable.Subscribe(i => callback(i.ToString()), () => callback("Completed"));
         }
-
-
     }
 }

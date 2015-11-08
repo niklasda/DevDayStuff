@@ -5,9 +5,15 @@ namespace RxDemoCode.Interfaces
 {
     public interface IDemo1Service
     {
+        void Demo0(Action<string> callback);
+
         void Demo1(Action<string> callback);
 
         void Demo2(Action<string> callback);
+
+        void Demo2_2(Action<string> callback);
+
+        void Demo2_3(Action<string> callback);
 
         void Demo3(Action<string> callback);
 

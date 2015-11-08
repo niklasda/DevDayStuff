@@ -9,11 +9,14 @@ namespace RxDemoCode.Observers
     public class ObserverOfMouse : IObserver<EventPattern<MouseEventArgs>>
     {
         private Action<string> _callback;
+        private Action<string> _complete;
 
         public ObserverOfMouse(Action<string> callback)
         {
             _callback = callback;
         }
+
+        //public Action<string> Callback { get { return _callback; } }
 
         public void OnNext(EventPattern<MouseEventArgs> value)
         {

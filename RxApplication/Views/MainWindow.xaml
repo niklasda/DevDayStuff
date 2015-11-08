@@ -1,7 +1,7 @@
 ﻿<Window x:Class="RxApplication.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Loaded="MainWindow_OnLoaded"
-        Title="Rx.NET Demo Window" Height="450" Width="563" 
+        Title="Rx.NET Demo Window" Height="500" Width="563" 
         Icon="/RxApplication;component/Icon/Rx_Icon.png"
         DataContext="{Binding Source={StaticResource VmLocator}, Path=Main}">
     <Grid>
@@ -11,8 +11,11 @@
         </Grid.ColumnDefinitions>
         <GroupBox Header="Demos" HorizontalAlignment="Left" Margin="10,10,0,10" Width="127">
             <StackPanel>
+                <Button Content="Demo 0" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="95" Command="{Binding Demo0Command}"/>
                 <Button Content="Demo 1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="95" Command="{Binding Demo1Command}"/>
                 <Button Content="Demo 2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="95" Command="{Binding Demo2Command}"/>
+                <Button Content="Demo 2__2" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="95" Command="{Binding Demo2_2Command}"/>
+                <Button Content="Demo 2__3" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="95" Command="{Binding Demo2_3Command}"/>
                 <Button Content="Demo 3" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="95" Command="{Binding Demo3Command}"/>
                 <ToggleButton Content="Demo 4" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="95" Command="{Binding Demo4Command}"></ToggleButton>
                 <Button Content="Demo 5" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="95" Command="{Binding Demo5Command}"/>

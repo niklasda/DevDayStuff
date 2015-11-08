@@ -1,3 +1,4 @@
+using System.Windows.Markup;
 using GalaSoft.MvvmLight;
 
 namespace RxApplication.ViewModels
@@ -17,6 +18,11 @@ namespace RxApplication.ViewModels
                     RaisePropertyChanged();
                 }
             }
+        }
+
+        public void ShowPresentationText(string text)
+        {
+            PresentationText = text;
         }
     }
 }
