@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Concurrency;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -21,9 +23,9 @@ namespace RxDemoCode.Services
 
         public void Demo2(Action<string> callback)
         {
-         //   IObservable<char> chars2 = "Welcome to Rx.NET\n".ToObservable();
-          //  var obs1 = chars2.TimeInterval();
-        //    chars2.Subscribe(callback);
+            //   IObservable<char> chars2 = "Welcome to Rx.NET\n".ToObservable();
+            //  var obs1 = chars2.TimeInterval();
+            //    chars2.Subscribe(callback);
             Observable.Return("Welcome to Rx.NET\n").Subscribe(callback);
 
             char[] chars = "Welcome to Rx.NET\n".ToCharArray();
@@ -64,16 +66,18 @@ namespace RxDemoCode.Services
             oneNumberPerSecond.Subscribe(callback);
         }
 
+        private ObserverOfMouse _obsemo;
         private IDisposable _mouseSub;
+        private IObservable<EventPattern<MouseEventArgs>> _movingEvents;
 
-        public void Demo4(UIElement wnd, Action<string> callback)
+        public void Demo4Setup(UIElement wnd, Action<string> callback)
         {
             // IObserver<EventPattern<MouseEventArgs>> callback
             // observable from mouseMove event, plot speed
 
-            var movingEvents = Observable.FromEventPattern<MouseEventHandler, MouseEventArgs>(ev => wnd.MouseMove += ev, ev => wnd.MouseMove -= ev);
-
-            _mouseSub = movingEvents.Subscribe(new ObserverOfMouse(callback));
+            _movingEvents = Observable.FromEventPattern<MouseEventHandler, MouseEventArgs>(ev => wnd.MouseMove += ev, ev => wnd.MouseMove -= ev);
+            _obsemo = new ObserverOfMouse(callback);
+          //  _mouseSub = _movingEvents.Subscribe(_obsemo);
 
             //var deltas = from pair in movingEvents.Buffer(2)
             //             let array = pair.ToArray()
@@ -86,13 +90,14 @@ namespace RxDemoCode.Services
 
         public void Demo4Toggle()
         {
-            if (_mouseSub != null)
+            var ms = _mouseSub as CompositeDisposable;
+            if (ms != null && !ms.IsDisposed)
             {
                 _mouseSub.Dispose();
             }
             else
             {
-                
+                _mouseSub = _movingEvents.Subscribe(_obsemo);
             }
         }
 
@@ -117,6 +122,6 @@ namespace RxDemoCode.Services
             observable.Subscribe(i => callback(i.ToString()), () => callback("Completed"));
         }
 
-        
+
     }
 }

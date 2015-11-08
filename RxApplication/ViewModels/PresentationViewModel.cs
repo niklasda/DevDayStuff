@@ -1,17 +1,22 @@
-using System;
-using System.Threading;
 using GalaSoft.MvvmLight;
-
 
 namespace RxApplication.ViewModels
 {
     public class PresentationViewModel : ViewModelBase
     {
-        public PresentationViewModel()
+        private string _presentationText;
+
+        public string PresentationText
         {
-
+            get { return _presentationText; }
+            set
+            {
+                if (_presentationText != value)
+                {
+                    _presentationText = value;
+                    RaisePropertyChanged();
+                }
+            }
         }
-
-        public string PresentationText { get; set; }  
     }
 }

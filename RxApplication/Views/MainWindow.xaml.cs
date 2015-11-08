@@ -20,7 +20,7 @@ namespace RxApplication.Views
             Action<string> callback = x => ViewModel.TextResult = x + Environment.NewLine + ViewModel.TextResult;
 
             var d = ServiceLocator.Current.GetInstance<IDemo1Service>();
-            d.Demo4(this, callback);
+            d.Demo4Setup(this, callback);
         }
     }
 }

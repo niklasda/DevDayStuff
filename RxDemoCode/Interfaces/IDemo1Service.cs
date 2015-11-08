@@ -11,7 +11,7 @@ namespace RxDemoCode.Interfaces
 
         void Demo3(Action<string> callback);
 
-        void Demo4(UIElement wnd, Action<string> callback);
+        void Demo4Setup(UIElement wnd, Action<string> callback);
 
         void Demo5(Action<string> callback);
 

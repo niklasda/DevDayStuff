@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Microsoft.Practices.ServiceLocation;
@@ -25,12 +26,15 @@ namespace RxApplication.ViewModels
             _demo1Svc = ServiceLocator.Current.GetInstance<IDemo1Service>();
 
             _callback = AppendLineWithPidToTextResult;
-
         }
 
-        private Action<string> _callback;
+        private PresentationWindow _presentationWindow;
 
-        private IDemo1Service _demo1Svc;
+        private GraphWindow _graphWindow;
+
+        private readonly Action<string> _callback;
+
+        private readonly IDemo1Service _demo1Svc;
 
         private string _textResult;
         public string TextResult
@@ -46,9 +50,8 @@ namespace RxApplication.ViewModels
             }
         }
 
-        public RelayCommand MouseMove { get; set; }
-
-
+        //public RelayCommand MouseMove { get; set; }
+        
         public RelayCommand Demo1Command { get; set; }
         public RelayCommand Demo2Command { get; set; }
         public RelayCommand Demo3Command { get; set; }
@@ -59,14 +62,25 @@ namespace RxApplication.ViewModels
         public RelayCommand PresentationCommand { get; set; }
         public RelayCommand ClearLogCommand { get; set; }
 
+        private void ShowPresentationPage(string pageText)
+        {
+            OpenPresentationWindow();
+
+            var pVm = ServiceLocator.Current.GetInstance<PresentationViewModel>();
+            pVm.PresentationText = pageText;
+        }
+
         private void DoDemo1()
         {
-          //  Action<long> callback = x => TextResult += x.ToString();
+            ShowPresentationPage("Demo 1 shows...");
+
+            //  Action<long> callback = x => TextResult += x.ToString();
             _demo1Svc.Demo1(_callback);
         }
 
         private void DoDemo2()
         {
+            ShowPresentationPage("Demo 2 shows...");
 
             //Action<string> callback = x => TextResult += x;
             _demo1Svc.Demo2(_callback);
@@ -74,6 +88,7 @@ namespace RxApplication.ViewModels
 
         private void DoDemo3()
         {
+            ShowPresentationPage("Demo 3 shows...");
             //            Action<double> callback = x => TextResult += x;
             _demo1Svc.Demo3(_callback);
         }
@@ -97,30 +112,38 @@ namespace RxApplication.ViewModels
 
         private void DoGraphDemo()
         {
-            var graphWindow = new GraphWindow();
-            graphWindow.ShowDialog();
+            if (_graphWindow == null)
+            {
+                _graphWindow = new GraphWindow();
+                _graphWindow.Owner = Application.Current.MainWindow;
+                _graphWindow.Closed += (o, e) => _graphWindow = null;
+                _graphWindow.Show();
+            }
+            else
+            {
+                _graphWindow.Activate();
+            }
         }
 
         private void OpenPresentationWindow()
         {
-            var presentationWindow = new PresentationWindow();
-            presentationWindow.ShowDialog();
+            if (_presentationWindow == null)
+            {
+                _presentationWindow = new PresentationWindow();
+                _presentationWindow.Owner = Application.Current.MainWindow;
+                _presentationWindow.Closed += (o, e) => _presentationWindow = null;
+                _presentationWindow.Show();
+            }
+            else
+            {
+                _presentationWindow.Activate();
+            }
         }
+
         private void DoClearLog()
         {
             TextResult = "";
         }
-
-        //private void AppendToTextResult(string text)
-        //{
-        //    TextResult += text;
-        //}
-
-        //private void AppendLineToTextResult(string text)
-        //{
-        //    TextResult += text;
-        //    TextResult += Environment.NewLine;
-        //}
 
         private void AppendLineWithPidToTextResult(string text)
         {
