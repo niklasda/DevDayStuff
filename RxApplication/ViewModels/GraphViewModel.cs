@@ -21,7 +21,7 @@ namespace RxApplication.ViewModels
 
             GraphData = plotModel;
 
-            Update2();
+            //Update2();
         }
 
         private PlotModel _graphData;
